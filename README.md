@@ -145,7 +145,8 @@ tôi tìm được ý như sau
  - bây giờ xóa đi 
  - ![DElete.png](https://tiloid.com/uploads/images/june2024/DElete.png)
  - ![7.png](https://tiloid.com/uploads/images/june2024/7.png)
- ###ACTION Thứ 5 REPORT
+   
+ ### ACTION Thứ 5 REPORT
    - thống kê thế hệ 
    - ![spREPORT.png](https://tiloid.com/uploads/images/june2024/spREPORT.png)
    - ![8.png](https://tiloid.com/uploads/images/june2024/8.png)

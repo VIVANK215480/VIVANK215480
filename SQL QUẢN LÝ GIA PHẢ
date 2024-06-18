@@ -1,0 +1,362 @@
+CREATE TABLE GiaPhaHoPham ( -- tạo bảng 
+    ID INT PRIMARY KEY,
+    Ten NVARCHAR(100) NOT NULL,
+    GioiTinh CHAR(3) NOT NULL CHECK (GioiTinh IN ('Nam', 'Nữ')),
+    MaChaMe INT,
+    NgaySinh DATE,
+    NgayMat DATE,
+    CONSTRAINT FK_GiaPhaHoPham_ChaMe FOREIGN KEY (MaChaMe) REFERENCES GiaPhaHoPham(ID)
+);
+
+CREATE TABLE ThongTinTheHe (
+    TheHe INT PRIMARY KEY,
+    SoLuongThanhVien INT
+);
+
+-- Giả sử như đã có số liệu ban đầu
+INSERT INTO ThongTinTheHe (TheHe, SoLuongThanhVien) VALUES 
+(1, 7),
+(2, 12),
+(3, 20),
+(4, 18);
+
+INSERT INTO GiaPhaHoPham (ID, Ten, GioiTinh, NgaySinh, NgayMat) VALUES 
+(1, N'Ông Phạm Văn Đội', 'Nam', '1800-01-01', '1880-01-01'),-- đã mất thọ 80t
+(2, N'Bà Nguyễn Thị Tư', 'Nữ', '1805-01-01', '1880-01-01');-- đã mất thọ thọ 75t 
+
+-- Thêm con của ông bà, cách ông bà 25 tuổi
+INSERT INTO GiaPhaHoPham (ID, Ten, GioiTinh, MaChaMe, NgaySinh, NgayMat) VALUES 
+(3, N'Phạm Văn Dần', N'Nam', 1, '1825-01-01', '1900-01-01'),-- đã mất gs không rõ ngày mất 
+(4, N'Phạm Thị Thịch', N'Nữ', 1, '1830-01-01', '1905-01-01');-- đã mất
+
+-- Thêm con của Phạm Văn Dần, cách Phạm Văn Dần 25 tuổi
+INSERT INTO GiaPhaHoPham (ID, Ten, GioiTinh, MaChaMe, NgaySinh) VALUES 
+(5, N'Đỗ Thị Ngòi  ', N'Nữ', 3, '1850-01-01'),-- đã mất
+(6, N'Nguyễn Thị Bất ', N'Nữ', 3, '1852-01-01'), -- đã mất
+(7, N'Nguyễn Thị Dụt  ', N'Nữ', 3, '1855-01-01');-- đã mất
+
+-- Thêm cháu của Phạm Văn Dần từ Người Con Thứ Nhất , cách thế hệ trước 25 năm
+INSERT INTO GiaPhaHoPham (ID, Ten, GioiTinh, MaChaMe, NgaySinh) VALUES 
+(8, N'Phạm Văn Chanh ', N'Nam', 5, '1875-01-01'),-- đã mất
+(9, N'Nguyễn Thị Khánh  ', N'nữ', 5, '1877-01-01'),
+(10, N'Đỗ Thị Lập', N'nữ', 5, '1880-01-01');
+
+-- Thêm cháu của Phạm Văn Dần từ Người Con Thứ Hai 
+INSERT INTO GiaPhaHoPham (ID, Ten, GioiTinh, MaChaMe, NgaySinh) VALUES 
+(11, N'Phạm Thị Đại ', 'nữ', 6, '1878-01-01'),-- mất 
+(12, N'Phạm Thị Tiếu', 'nữ', 6, '1882-01-01');-- mất 
+
+-- Thêm cháu của Phạm Văn Dần từ Người Con Thứ Ba
+INSERT INTO GiaPhaHoPham (ID, Ten, GioiTinh, MaChaMe, NgaySinh) VALUES 
+(13, N'Phạm Thị Tị ', N'nữ ', 7, '1881-01-01'),
+(14, N'Phạm Văn Cốc ', N'nam', 7, '1883-01-01'),-- cốc lớn 
+(15, N'Lâm Thị Mai', N'nữ', 7, '1885-01-01'),
+(16, N'Phạm Văn Cốc ', N'nam', 7, '1887-01-01'),-- cốc bé 
+(17, N'Nguyễn Thị Siu', N'nữ', 7, '1890-01-01'),
+(18, N'Phạm Thị Gái  ', N'nữ', 7, '1889-01-01'),
+(19, N'Phạm Thị Năm  ', N'nữ', 7, '1889-01-01');
+
+-- thêm chắt của ông Dần, thế hệ 5, cách thế hệ trước 25 năm
+insert into GiaPhaHoPham(ID, Ten , GioiTinh,MachaMe,NgaySinh) Values
+(20, N'Phạm Thị Hiệp',N'nữ',8,'1900-01-01'),
+(21, N'Phạm Văn Ước',N'nam',8,'1900-01-01'),
+(22, N'Phạm Thị Lan',N'nữ',8,'1900-01-01'),
+(23, N'Phạm Văn Ký',N'nam',8,'1900-01-01'),
+(24, N'Phạm Văn Điệp',N'nam',8,'1900-01-01'),
+(25, N'Nguyễn Thị Hà',N'nữ',8,'1900-01-01'),
+(26, N'Phạm Văn Mạnh',N'nam',8,'1900-01-01'),
+(27, N'Phạm Văn Đức',N'nam',10,'1900-01-01'),
+(28, N'Nguyễn Thị Phương',N'nữ',10,'1900-01-01'),
+ (29, N'Phạm Văn Thắng',N'nam',14,'1900-01-01'),
+ (30, N'Phạm Thị Thanh Tĩnh  ',N'nữ',14,'1900-01-01'),
+ (31, N'Phạm Văn Lợi ',N'nam',14,'1900-01-01'),
+ (32, N'Phạm Minh Tuấn ',N'nam',14,'1900-01-01'),
+ (33, N'Đỗ Dương Quỳnh ',N'nữ',14,'1900-01-01'),
+ (34, N'Phạm Thị Dung',N'nữ',16,'1900-01-01'),
+ (35, N'Phạm Thị Thanh',N'nữ',16,'1900-01-01'),
+ (36, N'Phạm Thị Hoa',N'nữ',16,'1900-01-01'),
+ (37, N'Phạm Thị Hướng',N'nữ',16,'1900-01-01'),
+ (38, N'Phạm Quang Vinh',N'nam',16,'1900-01-01'),
+ (39, N'Nguyễn Thị Hoa',N'nữ',16,'1900-01-01'),
+ (40, N'Phạm Thị Hương',N'nữ',16,'1900-01-01');
+-- thế hệ 6
+insert into GiaPhaHoPham(ID, Ten , GioiTinh,MachaMe,NgaySinh) Values
+(41, N'Phạm Thị Hương',N'nữ',21,'1925-01-01'),
+(42, N'Phạm Văn Nguyện',N'nam',21,'1927-01-01'),
+(43, N'Phạm Văn Nam ',N'nam',21,'1930-01-01'),
+(44, N'Phạm Thị Hương',N'nữ',21,'1935-01-01'),
+(45, N'Phạm Thị Ngọc Anh',N'nữ',24,'1948-01-01'),
+(46, N'Phạm Thị Vân Anh',N'nữ',24,'1954-01-01'),
+(47, N'Phạm Thu Hằng',N'nữ',27,'1945-01-01'),
+(48, N'Phạm Văn TRung',N'nam',27,'1955-01-01'),
+(49, N'Phạm Thị Thanh Thúy',N'nữ',28,'1937-01-01'),
+(50, N'Phạm Hương Giang',N'nữ',28,'1952-01-01'),
+(51, N'Phạm Thái Sơn',N'nam',28,'1965-01-01'),
+(52, N'Phạm Thị Phương Thảo',N'nữ',31,'1945-01-01'),
+(53, N'Phạm Minh Thư',N'nữ',31,'1921-01-01'),
+(54, N'Phạm Minh Tuyết',N'nữ',31,'1937-01-01'),
+(55, N'Phạm Gia Bảo',N'nam',31,'1942-01-01'),
+(56, N'Phạm Bích Ngọc',N'nữ',36,'1936-01-01'),
+(57, N'Phạm Quang Khải',N'nữ',36,'1948-01-01');
+-- truy vấn {
+WITH CTE AS (
+    SELECT ID, Ten, GioiTinh, MaChaMe, NgaySinh, NgayMat, 0 AS CapDo 
+    FROM GiaPhaHoPham
+    WHERE MaChaMe IS NULL
+
+    UNION ALL
+
+    SELECT tv.ID, tv.Ten, tv.GioiTinh, tv.MaChaMe, tv.NgaySinh, tv.NgayMat, c.CapDo + 1
+    FROM GiaPhaHoPham tv
+    INNER JOIN CTE c ON tv.MaChaMe = c.ID
+)
+
+SELECT 
+    REPLICATE('    ', CapDo) + Ten AS TenThanhVien,
+    GioiTinh,
+    NgaySinh,
+    NgayMat
+FROM CTE
+ORDER BY CapDo, ID;
+--} kết thúc truy vấn 
+-- trgger bắt lỗi 
+-- Tạo trigger kiểm tra tuổi con không lớn hơn tuổi bố mẹ
+
+CREATE TRIGGER trg_Checktuoichacon
+ON GiaPhaHoPham
+INSTEAD OF INSERT, UPDATE
+AS
+BEGIN
+    DECLARE @ID INT, @Ten NVARCHAR(100), @GioiTinh CHAR(3), @MaChaMe INT, @NgaySinh DATE, @NgayMat DATE;
+
+    -- Dùng cursor để duyệt từng bản ghi được thêm hoặc sửa
+    DECLARE cur CURSOR FOR
+    SELECT ID, Ten, GioiTinh, MaChaMe, NgaySinh, NgayMat
+    FROM INSERTED;
+
+    OPEN cur;
+    FETCH NEXT FROM cur INTO @ID, @Ten, @GioiTinh, @MaChaMe, @NgaySinh, @NgayMat;
+
+    WHILE @@FETCH_STATUS = 0
+    BEGIN
+        -- Kiểm tra giới tính chỉ là 'N' (Nam) hoặc 'N' (Nữ)
+        IF UPPER(@GioiTinh) NOT IN ('Nam', 'Nữ')
+        BEGIN
+            RAISERROR ('Giới tính không hợp lệ. Chỉ có thể là  "Nam" hoặc "Nữ".', 16, 1);
+            ROLLBACK TRANSACTION; -- Quay lại trạng thái trước đó nếu có lỗi
+            RETURN; -- Kết thúc trigger
+        END
+
+        -- Kiểm tra nếu có bố/mẹ
+        IF @MaChaMe IS NOT NULL
+        BEGIN
+            DECLARE @NgaySinhChaMe DATE;
+
+            -- Lấy ngày sinh của bố/mẹ
+            SELECT @NgaySinhChaMe = NgaySinh
+            FROM GiaPhaHoPham
+            WHERE ID = @MaChaMe;
+
+            -- So sánh ngày sinh
+            IF @NgaySinh <= @NgaySinhChaMe
+            BEGIN
+                RAISERROR ('Tuổi của con không thể lớn hơn hoặc bằng tuổi của bố/mẹ', 16, 1);
+                ROLLBACK TRANSACTION; -- Quay lại trạng thái trước đó nếu có lỗi
+                RETURN; -- Kết thúc trigger
+            END
+        END
+
+        -- Thực hiện thao tác INSERT hoặc UPDATE
+        IF NOT EXISTS (SELECT 1 FROM GiaPhaHoPham WHERE ID = @ID)
+        BEGIN
+            INSERT INTO GiaPhaHoPham (ID, Ten, GioiTinh, MaChaMe, NgaySinh, NgayMat)
+            VALUES (@ID, @Ten, @GioiTinh, @MaChaMe, @NgaySinh, @NgayMat);
+        END
+        ELSE
+        BEGIN
+            UPDATE GiaPhaHoPham
+            SET Ten = @Ten, GioiTinh = @GioiTinh, MaChaMe = @MaChaMe, NgaySinh = @NgaySinh, NgayMat = @NgayMat
+            WHERE ID = @ID;
+        END
+
+        FETCH NEXT FROM cur INTO @ID, @Ten, @GioiTinh, @MaChaMe, @NgaySinh, @NgayMat;
+    END
+
+    CLOSE cur;
+    DEALLOCATE cur;
+END;
+
+
+-- SP thêm dữ liệu ví dụ như con nuôi vv phòng đứa con ngoại lệ 
+CREATE PROCEDURE sp_ManageGiaPhaHoPham
+    @Action VARCHAR(10),  -- Thao tác: 'INSERT', 'UPDATE', 'DELETE', 'SEARCH', 'DETAILS', 'REPORT'
+    @ID INT = NULL,
+    @Ten NVARCHAR(100) = NULL,
+    @GioiTinh CHAR(3) = NULL,
+    @MaChaMe INT = NULL,
+    @NgaySinh DATE = NULL,
+    @NgayMat DATE = NULL,
+    @Doi INT = NULL  -- Đời muốn thống kê, ví dụ: 1, 2, 3, 4, 5, 6
+AS
+BEGIN
+    IF @Action = 'INSERT'
+    BEGIN
+        -- Thêm thành viên gia phả mới
+        INSERT INTO GiaPhaHoPham (ID, Ten, GioiTinh, MaChaMe, NgaySinh, NgayMat)
+        VALUES (@ID, @Ten, @GioiTinh, @MaChaMe, @NgaySinh, @NgayMat);
+    END
+    ELSE IF @Action = 'UPDATE'
+    BEGIN
+        -- Cập nhật thông tin thành viên gia phả
+        UPDATE GiaPhaHoPham
+        SET Ten = @Ten,
+            GioiTinh = @GioiTinh,
+            MaChaMe = @MaChaMe,
+            NgaySinh = @NgaySinh,
+            NgayMat = @NgayMat
+        WHERE ID = @ID;
+    END
+    ELSE IF @Action = 'DELETE'
+    BEGIN
+        -- Xóa thành viên gia phả
+        DELETE FROM GiaPhaHoPham
+        WHERE ID = @ID;
+    END
+    ELSE IF @Action = 'SEARCH'
+    BEGIN
+        -- Tìm kiếm thành viên gia phả và mô tả cách gọi
+        SELECT 
+            giadinh.ID,
+            giadinh.Ten,
+            giadinh.GioiTinh,
+            giadinh.MaChaMe,
+            giadinh.NgaySinh,
+            giadinh.NgayMat,
+            CASE 
+				WHEN giadinh.ID = 1 THEN N'Phạm Văn Đội cụ kỵ, đã mất, thọ 80t '
+                WHEN giadinh.ID = 2 THEN N'Phạm Thị Tư cụ kỵ , bà cố, đã mất thọ 75t'
+                WHEN giadinh.ID = 3 THEN N'Phạm Văn Dần gọi Ông Phạm Văn Đội là bố, gọi Bà Nguyễn Thị Tư là mẹ và ông Đội đã mất '
+                WHEN giadinh.ID = 4 THEN N'Phạm Thị Thịch gọi Ông Phạm Văn Đội là bố, gọi Bà Nguyễn Thị Tư là mẹ bà cụ Tư đã mất '
+                WHEN giadinh.ID = 5 THEN N'Người con thứ nhất của ông Dần gọi ông Đội là ông nội là con nuôi của ông Dần'
+                WHEN giadinh.ID = 6 THEN N'Người con nuôi thứ hai của ông Dần gọi ông Đội là ông nội'
+				WHEN giadinh.ID = 7 THEN N'Người con nuôi thứ3 của ông Dần gọi ông Đội là ông nội '
+		   -- thế hệ 3 cháu
+		      WHEN giadinh.ID = 8 THEN N'cháu ông Dần , con trai bà ngòi, gọi bà Bất và bà Dụt là dì ( đã mất ) '
+		      WHEN giadinh.ID = 9 THEN N'cháu ông Dần ,con gái thứ 2 bà ngòi gọi bà Bất và bà Dụt là dì '
+		      WHEN giadinh.ID = 10 THEN N'cháu ông Dần , con gái thứ 3 bà ngòi,gọi bà Bất và bà Dụt là dì '
+			  WHEN giadinh.ID = 11 THEN N'cháu ông Dần, con gái cả bà Bất,( đã mất ) , gọi bà Ngòi là bá , bà Dụt là dì'
+			  WHEN giadinh.ID = 12 THEN N'cháu ông Dần , con gái thứ 2 bà Bất , gọi bà Ngòi là bá , bà Dụt là dì'
+			  WHEN giadinh.ID = 13 THEN N' cháu ông Dần , con gái cả bà Dụt gọi bà Ngòi bà Bất là bá,  '
+			  WHEN giadinh.ID = 14 THEN N'cháu ông Dần , con trai bà Dụt gọi bà Ngòi bà Bất là bá'
+			  WHEN giadinh.ID = 15 THEN N'cháu ông Dần , con dâu bà Dụt gọi bà Ngòi bà Bất là bá'
+		      WHEN giadinh.ID = 16 THEN N'cháu ông Dần , con trai thứ 2  bà Dụt gọi bà Ngòi bà Bất là bá'
+              WHEN giadinh.ID = 17 THEN N'cháu ông Dần , con gái 3 bà Dụt gọi bà Ngòi bà Bất là bá'
+			  WHEN giadinh.ID = 18 THEN N'cháu ông Dần , con gái 4 bà Dụt gọi bà Ngòi bà Bất là bá'
+			  WHEN giadinh.ID = 19 THEN N'cháu ông Dần ,  con gái út bà Dụt'
+			   -- thế hệ 4 chắt
+				  WHEN giadinh.ID = 20 THEN N'chắt ông Dần , cháu Bà Ngòi , con trai 1 mẹ Khánh'
+			      WHEN giadinh.ID = 21 THEN N'chắt ông Dần , cháu Bà Ngòi , con dâu mẹ Khánh vợ Ước'
+				  WHEN giadinh.ID = 22 THEN N'chắt ông Dần , cháu Bà Ngòi , con trai 2 mẹ Khánh( đã mất )'
+				  WHEN giadinh.ID = 23 THEN N'chắt ông Dần , cháu Bà Ngòi , con trai 3 mẹ Khánh chồng Hà'
+				  WHEN giadinh.ID = 24 THEN N'chắt ông Dần , cháu Bà Ngòi , con dâu mẹ Khánh vợ Điệp '
+				  WHEN giadinh.ID = 25 THEN N'chắt ông Dần , cháu Bà Ngòi , con trai 3 mẹ Khánh(đã mất)'
+				  WHEN giadinh.ID = 26 THEN N'chắt ông Dần , cháu Bà Ngòi , con trai 4 mẹ Khánh '
+				  WHEN giadinh.ID = 27 THEN N'chắt ông Dần , cháu Bà Ngòi , con dâu út  mẹ Khánh '
+				  -- gia đình ông bà Cốc mai lớn 
+				  WHEN giadinh.ID = 28 THEN N'chắt ông Dần , cháu bà Dụt , con trai cả ông bà Cốc Mai (Lớn) '
+				  WHEN giadinh.ID = 29 THEN N'chắt ông Dần , cháu Bà Dụt , con dâu ông bà Cốc Mai (Lớn)'
+			      WHEN giadinh.ID = 30 THEN N'chắt ông Dần , cháu Bà Dụt , con trai thứ 2 Ông bà Cốc Mai(lớn)'
+				  WHEN giadinh.ID = 31 THEN N'chắt ông Dần , cháu Bà Dụt , con Trai thứ 3 Ông bà Cốc Mai ( lớn)'
+			      WHEN giadinh.ID = 32 THEN N'chắt ông Dần , cháu Bà Dụt , con Dâu út nhà ông bà Cốc Mai (Lớn)'
+				  -- gia đình ông bà Cốc Siu bé 
+				  WHEN giadinh.ID = 33 THEN N'chắt ông Dần , cháu Bà Dụt , con  gái cả mẹ Siu'
+				  WHEN giadinh.ID = 34 THEN N'chắt ông Dần , cháu Bà Ngòi , con gái thứ 2'
+				  WHEN giadinh.ID = 35 THEN N'chắt ông Dần , cháu Bà Ngòi , con gái thứ 3'
+				  WHEN giadinh.ID = 36 THEN N'chắt ông Dần , cháu Bà Ngòi , con gái thứ 4'
+				  WHEN giadinh.ID = 37 THEN N'chắt ông Dần , cháu Bà Ngòi , con trai  '
+				  WHEN giadinh.ID = 38 THEN N'chắt ông Dần , cháu Bà Ngòi , con dâu  '
+				  WHEN giadinh.ID = 39 THEN N'chắt ông Dần , cháu Bà Ngòi , con gái út mẹ Siu '
+				  WHEN giadinh.ID = 40 THEN N'chắt ông Dần , chắt Bà Ngòi , con gái út mẹ Siu '
+				   -- thế hệ chút
+						         -- gia đình ông ước bà Lan 
+								WHEN giadinh.ID = 41 THEN N'chút ông Dần , chắt Bà Ngòi , cháu bà Khánh , con gái thứ cả '
+								WHEN giadinh.ID = 42 THEN N'chút ông Dần , chắt Bà Ngòi , cháu bà Khánh , con trai thứ 1 '
+								WHEN giadinh.ID = 43 THEN N'chút ông Dần , chắt Bà Ngòi , cháu bà Khánh , con trai thứ 2  '
+								WHEN giadinh.ID = 44 THEN N'chút ông Dần , chắt Bà Ngòi , cháu bà Khánh , con gái út '
+								-- gia đình ông ông Điệp Bà Hà 
+								WHEN giadinh.ID = 45 THEN N'chút ông Dần , chắt Bà Ngòi , cháu bà Lập , con gái cả '
+								WHEN giadinh.ID = 46 THEN N'chút ông Dần , chắt Bà Ngòi , cháu bà Lập , con gái thứ 2 '
+								-- gia đình ông Đức bà Phượng
+								WHEN giadinh.ID = 47 THEN N'chút ông Dần , chắt Bà Ngòi , cháu bà Lập , con Gái cả '
+								WHEN giadinh.ID = 48 THEN N'chút ông Dần , chắt Bà Ngòi , cháu ông Lập , con trai út  '
+								-- gia đình ông Thắng bà Tĩnh
+								WHEN giadinh.ID = 49 THEN N'chút ông Dần , chắt Bà Dụt , cháu ông bà cốc mai , con gái cả'
+								WHEN giadinh.ID = 50 THEN N'chút ông Dần , chắt Bà Dụt , cháu ông bà cốc mai , con gái 2'
+								WHEN giadinh.ID = 51 THEN N'chút ông Dần , chắt Bà Dụt , cháu ông bà cốc mai , con trai út'
+								-- gia đình ông Tĩnh bà Quỳnh
+								WHEN giadinh.ID = 52 THEN N'chút ông Dần , chắt Bà Dụt , cháu ông bà cốc mai , con gái cả'
+		                        WHEN giadinh.ID = 53 THEN N'chút ông Dần , chắt Bà Dụt , cháu ông bà cốc mai , con trai thứ 1'
+								WHEN giadinh.ID = 54 THEN N'chút ông Dần , chắt Bà Dụt , cháu ông bà cốc mai , con trai thứ 2'
+								WHEN giadinh.ID = 55 THEN N'chút ông Dần , chắt Bà Dụt , cháu ông bà cốc mai , con trai út'
+								-- gia đình ông Vinh bà Hoa
+							    WHEN giadinh.ID = 56 THEN N'chút ông Dần , chắt Bà Dụt , cháu ông bà cốc mai bé , con gái lớn'
+							    WHEN giadinh.ID = 57 THEN N'chút ông Dần , chắt Bà Dụt , cháu ông bà cốc mai bé , con trai bé '
+                ELSE N''
+            END AS MoTa
+        FROM 
+            GiaPhaHoPham giadinh
+        WHERE (@ID IS NOT NULL AND giadinh.ID = @ID)
+           OR (@MaChaMe IS NOT NULL AND giadinh.MaChaMe = @MaChaMe)
+           OR (@Ten IS NOT NULL AND giadinh.Ten LIKE '%' + @Ten + '%')
+           OR (@GioiTinh IS NOT NULL AND giadinh.GioiTinh = @GioiTinh)
+           OR (@NgaySinh IS NOT NULL AND giadinh.NgaySinh = @NgaySinh)
+           OR (@NgayMat IS NOT NULL AND giadinh.NgayMat = @NgayMat)
+        ORDER BY giadinh.ID;
+    END
+   ELSE IF @Action = 'REPORT'
+    BEGIN
+        -- Báo cáo thống kê số lượng thành viên theo đời
+        SELECT TheHe, SoLuongThanhVien
+        FROM ThongTinTheHe;
+    END
+    ELSE
+    BEGIN
+        RAISERROR ('không hợp lệ', 16, 1);
+        RETURN;
+    END
+END;
+DROP PROCEDURE dbo.sp_ManageGiaPhaHoPham;
+
+-- gọi thủ tục .
+-- Gọi thủ tục INSERT
+EXEC sp_ManageGiaPhaHoPham 
+    @Action = 'INSERT',
+    @ID = 75,
+    @Ten = N'NGUYÊN VĂN C',
+    @GioiTinh = 'Nam',  -- 'N' cho Nam
+    @MaChaMe = 23,
+    @NgaySinh = '2018-01-10',
+    @NgayMat = NULL;
+
+	-- Gọi thủ tục SEARCH
+EXEC sp_ManageGiaPhaHoPham 
+    @Action = 'SEARCH',
+    @ID = 8;
+    
+-- Gọi thủ tục UPDATE
+EXEC sp_ManageGiaPhaHoPham 
+    @Action = 'UPDATE',
+    @ID = 70,
+    @Ten = N'NGUYÊN VĂN C',
+    @GioiTinh = 'N',  -- 'N' cho Nam
+    @MaChaMe = 45,
+    @NgaySinh = '2000-01-11',
+    @NgayMat = NULL;
+
+-- Gọi thủ tục DELETE
+EXEC sp_ManageGiaPhaHoPham 
+    @Action = 'DELETE',
+    @ID = 75;
+
+
+	EXEC sp_ManageGiaPhaHoPham @Action = 'REPORT';

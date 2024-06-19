@@ -325,8 +325,6 @@ BEGIN
         RETURN;
     END
 END;
-DROP PROCEDURE dbo.sp_ManageGiaPhaHoPham;
-
 -- gọi thủ tục .
 -- Gọi thủ tục INSERT
 EXEC sp_ManageGiaPhaHoPham 
